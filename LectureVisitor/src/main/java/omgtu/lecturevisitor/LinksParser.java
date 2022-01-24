@@ -7,15 +7,17 @@ import java.util.HashMap;
 
 
 public class LinksParser {
-    HashMap<String, String> links;
+    HashMap<String, String> links = new HashMap<>();
 
     private void readLinksFile(){
-        final Path filePath = Path.of("./Links.txt");
+        final Path filePath = Path.of("Links.txt");
+
         try(InputStream inputStream = Files.newInputStream(filePath)){
             BufferedReader bufferedReader =
                     new BufferedReader(new InputStreamReader(inputStream));
             String line;
             while ((line = bufferedReader.readLine()) != null){
+                System.out.println(line);
                 parse(line);
             }
         }
@@ -25,11 +27,12 @@ public class LinksParser {
     }
 
     private void parse(String line) {
-        String[] separatedLine = line.split(":");
+        String[] separatedLine = line.split(" ");
+        System.out.println(separatedLine[0] + separatedLine[1]);
         links.put(separatedLine[0], separatedLine[1]);
     }
 
-    HashMap<String, String> getListOfLinks(){
+    public HashMap<String, String> getListOfLinks(){
         readLinksFile();
         return links;
     }
